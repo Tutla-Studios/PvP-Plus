@@ -29,3 +29,6 @@ commands:
     description: get into the queue dumbass
   spectate:
     description: uhh spectate shi
+  pvpsettings:
+    description: configure plugin settings
+    permission: permission.node

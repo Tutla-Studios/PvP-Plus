@@ -3,6 +3,7 @@ package net.tutla.pvpPlus.commandSystem;
 
 import net.tutla.pvpPlus.PvpPlus;
 import net.tutla.pvpPlus.commandSystem.command.*;
+import net.tutla.pvpPlus.commandSystem.command.PvpSettingsCommand;
 import net.tutla.pvpPlus.arena.Arena;
 import net.tutla.pvpPlus.kit.Kit;
 import org.bukkit.Bukkit;
@@ -32,6 +33,7 @@ public class CommandSystem {
         commands.add(new QueueCommand(pvpPlus.getQueueManager(), pvpPlus.getKitManager()));
         commands.add(new LeaveFightCommand(pvpPlus.getFightManager()));
         commands.add(new SpectateCommand(pvpPlus.getFightManager()));
+        commands.add(new PvpSettingsCommand());
     }
 
     public boolean execute(CommandContext cmdParams){

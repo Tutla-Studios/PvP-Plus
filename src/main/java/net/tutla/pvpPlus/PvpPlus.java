@@ -3,6 +3,7 @@ package net.tutla.pvpPlus;
 import net.tutla.pvpPlus.arena.ArenaSerializer;
 import net.tutla.pvpPlus.commandSystem.CommandContext;
 import net.tutla.pvpPlus.commandSystem.CommandSystem;
+import net.tutla.pvpPlus.config.PluginConfig;
 import net.tutla.pvpPlus.duel.DuelManager;
 import net.tutla.pvpPlus.fight.FightManager;
 import net.tutla.pvpPlus.gui.GuiManager;
@@ -27,6 +28,7 @@ import java.util.List;
 public final class PvpPlus extends JavaPlugin {
     private static PvpPlus instance;
     private final CommandSystem commandSystem = new CommandSystem();
+    private PluginConfig pluginConfig;
 
     private final ArenaSerializer serializer = new ArenaSerializer(getDataFolder(), getLogger());
     private final ArenaManager arenaManager = new ArenaManager(serializer);
@@ -60,6 +62,9 @@ public final class PvpPlus extends JavaPlugin {
     public DuelManager getDuelManager(){
         return duelManager;
     }
+    public PluginConfig getPluginConfig() {
+        return pluginConfig;
+    }
 
 
     // actual shi
@@ -67,6 +72,7 @@ public final class PvpPlus extends JavaPlugin {
     public void onEnable() {
         instance = this;
         saveDefaultConfig();
+        pluginConfig = new PluginConfig(this);
 
         kitManager.loadAll();
         arenaManager.loadAll();

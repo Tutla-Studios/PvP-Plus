@@ -17,6 +17,7 @@
 | 👁 **Spectating**        | Watch live fights from inside the arena bounds                         |
 | 📊 **Scoreboards**       | Live round/score sidebar during every fight                            |
 | 📋 **Fight Summary**     | Post-fight chat recap with kills, score, and winner                    |
+| ⚙ **Settings**           | In-game config command with smart autocomplete per setting type        |
 
 ---
 
@@ -136,7 +137,7 @@ Every fight — whether a duel, party duel, split, FFA, or queue match — goes 
 6. After all rounds, the **fight winner** is announced with a full summary
 
 ### Rounds
-Fights use a **first-to** system - the first team to reach the target wins the fight. Round scores are displayed on a **live sidebar scoreboard**.
+Fights use a **best-of** system - the first team to win the majority of rounds wins the fight. Round scores are displayed on a **live sidebar scoreboard**.
 
 
 ### Forfeit
@@ -156,6 +157,7 @@ Forfeiting removes you from the fight immediately, notifies all participants, an
 ```
 
 Spectators are placed in Spectator mode inside the arena. Movement is **bounded to the arena box** — spectators cannot fly outside the fight area. The live scoreboard is shown to spectators as well.
+
 ---
 
 ## 🔧 Requirements
@@ -168,18 +170,51 @@ Spectators are placed in Spectator mode inside the arena. Movement is **bounded 
 
 ---
 
+## ⚙ Settings System
+
+Admins can configure the plugin in-game without editing files. All settings are persisted to `config.yml`.
+
+```
+/pvpsettings                          List all settings and their current values
+/pvpsettings <setting> <value>        Change a setting
+```
+
+Autocomplete is context-aware per setting type:
+- **Location** settings suggest `here` (captures your current position) and `clear` (unsets)
+- **Boolean** settings suggest `true` and `false`
+
+### Available Settings
+
+| Setting        | Type     | Description                                           |
+|----------------|----------|-------------------------------------------------------|
+| `hub_location` | location | Where players are sent after a fight, forfeit, or leaving spectator mode |
+
+#### Hub Location
+
+```
+/pvpsettings hub_location here      Set hub to your current position
+/pvpsettings hub_location clear     Unset — players fall back to above the arena corner
+```
+
+When set, **every exit path** from a fight sends players to the hub:
+- Fight ends normally
+- Player forfeits with `/leavefight`
+- Spectator stops watching with `/leavefight`
+- Player disconnects mid-fight
+
+---
+
 ## 🚧 Planned / In Progress
 
 - [ ] Statistics tracking (kills, wins, K/D per player)
 - [ ] Fight history logs
 - [ ] Leaderboards
+- [ ] Player kit creation
 - [ ] Kit configuration (custom options per kit)
-- [ ] Lobby/spawn location configuration
 - [ ] Per-kit queue ranked matching
 - [ ] ELO based queue
 - [ ] Kiteditor
 - [ ] Custom site to show rankings
-- [ ] Queue Multiple Kits at once
 
 ---
 

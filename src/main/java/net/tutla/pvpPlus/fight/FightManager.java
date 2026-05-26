@@ -1,7 +1,9 @@
 package net.tutla.pvpPlus.fight;
 
+import net.tutla.pvpPlus.PvpPlus;
 import net.tutla.pvpPlus.arena.Arena;
 import net.tutla.pvpPlus.arena.ArenaManager;
+import net.tutla.pvpPlus.config.ConfigSetting;
 import net.tutla.pvpPlus.kit.Kit;
 import net.tutla.pvpPlus.kit.KitManager;
 import net.tutla.pvpPlus.util.TextUtil;
@@ -227,7 +229,7 @@ public class FightManager {
         // Immediately restore this player to survival
         player.setGameMode(GameMode.SURVIVAL);
         player.getInventory().clear();
-        player.teleport(fight.getArena().getPos1().clone().add(0, 2, 0));
+        player.teleport(getExitLocation(fight));
         removeScoreboard(player);
         playerFight.remove(player.getUniqueId());
 
@@ -288,9 +290,7 @@ public class FightManager {
     }
 
     private void cleanupFight(Fight fight) {
-        // Teleport all participants to arena pos1 (outside) or a lobby
-        // For now teleport to just above pos2 — you can change this to a lobby location
-        Location exitLoc = fight.getArena().getPos1().clone().add(0, 2, 0);
+        Location exitLoc = getExitLocation(fight);
 
         for (UUID uuid : fight.getAllParticipants()) {
             Player p = Bukkit.getPlayer(uuid);
@@ -339,7 +339,7 @@ public class FightManager {
         for (Fight fight : fights.values()) {
             if (fight.getSpectators().remove(spectator.getUniqueId())) {
                 spectator.setGameMode(GameMode.SURVIVAL);
-                spectator.teleport(fight.getArena().getPos1().clone().add(0, 2, 0));
+                spectator.teleport(getExitLocation(fight));
                 removeScoreboard(spectator);
                 return true;
             }
@@ -493,4 +493,10 @@ public class FightManager {
     public Fight getFight(Player player) { return playerFight.get(player.getUniqueId()); }
     public boolean isInFight(Player player) { return playerFight.containsKey(player.getUniqueId()); }
     public Collection<Fight> getAllFights() { return fights.values(); }
+
+    private Location getExitLocation(Fight fight) {
+        return PvpPlus.getInstance().getPluginConfig()
+                .getLocation(ConfigSetting.HUB_LOCATION)
+                .orElseGet(() -> fight.getArena().getPos1().clone().add(0, 2, 0));
+    }
 }
