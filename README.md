@@ -17,7 +17,6 @@
 | 👁 **Spectating**        | Watch live fights from inside the arena bounds                         |
 | 📊 **Scoreboards**       | Live round/score sidebar during every fight                            |
 | 📋 **Fight Summary**     | Post-fight chat recap with kills, score, and winner                    |
-| ⚙ **Settings**           | In-game config command with smart autocomplete per setting type        |
 
 ---
 
@@ -193,14 +192,8 @@ Autocomplete is context-aware per setting type:
 
 ```
 /pvpsettings hub_location here      Set hub to your current position
-/pvpsettings hub_location clear     Unset — players fall back to above the arena corner
+/pvpsettings hub_location clear     Unset; players fall back to above the arena corner
 ```
-
-When set, **every exit path** from a fight sends players to the hub:
-- Fight ends normally
-- Player forfeits with `/leavefight`
-- Spectator stops watching with `/leavefight`
-- Player disconnects mid-fight
 
 ---
 
