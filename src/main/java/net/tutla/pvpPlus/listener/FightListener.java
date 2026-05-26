@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -31,18 +32,14 @@ public class FightListener implements Listener {
 
     // Cancel lethal damage and hand to FightManager instead of death screen
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onDamage(EntityDamageByEntityEvent event) {
-        if (!(event.getEntity() instanceof Player killed)) return;
+    public void onDeath(PlayerDeathEvent event) {
+        Player killed = event.getEntity();
         Fight fight = fightManager.getFight(killed);
         if (fight == null || fight.getState() != FightState.ACTIVE) return;
 
-        double newHealth = killed.getHealth() - event.getFinalDamage();
-        if (newHealth <= 0) {
-            event.setCancelled(true);
-            Player killer = null;
-            if (event.getDamager() instanceof Player p) killer = p;
-            fightManager.handleDeath(killed, killer);
-        }
+        event.setCancelled(true); // Prevents respawn screen, keeps inventory, etc.
+        Player killer = killed.getKiller();
+        fightManager.handleDeath(killed, killer);
     }
 
     // Also catch non-player lethal damage (fall, fire, etc.)
