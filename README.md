@@ -1,6 +1,6 @@
 # ⚔ PvP+
 
-> **A fully featured PvP plugin for Paper 1.21.1** - duels, parties, arenas, kits, matchmaking, and spectating. Built for competitive servers that want a complete out-of-the-box pvp plugin without bloat.
+> **A fully featured PvP plugin for Paper 1.21.11+** - duels, parties, arenas, kits, matchmaking, and spectating. Built for competitive servers that want a complete out-of-the-box pvp plugin without bloat.
 
 ---
 
@@ -192,7 +192,7 @@ Autocomplete is context-aware per setting type:
 
 ```
 /pvpsettings hub_location here      Set hub to your current position
-/pvpsettings hub_location clear     Unset; players fall back to above the arena corner
+/pvpsettings hub_location clear     Unset — players fall back to above the arena corner
 ```
 
 ---
