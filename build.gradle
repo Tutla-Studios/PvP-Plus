@@ -5,7 +5,7 @@ plugins {
 
 group = 'net.tutla'
 version = '1.2'
-ext.mcVersion = '26.2'
+ext.mcVersion = '26.3'
 
 repositories {
     mavenCentral()
