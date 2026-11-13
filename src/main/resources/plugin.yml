@@ -1,7 +1,7 @@
 name: pvp-plus
-version: '1.2'
+version: '${version}'
 main: net.tutla.pvpPlus.PvpPlus
-api-version: '26.1.2'
+api-version: '${mcVersion}'
 authors: [ TutlaMC ]
 description: skibidi
 website: https://tutla.net
